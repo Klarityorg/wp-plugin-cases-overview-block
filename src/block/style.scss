@@ -1,0 +1,128 @@
+.wp-block-klarity-cases-overview {
+  .card {
+    padding: 0;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+    text-align: center;
+
+    .new, .update {
+      display: flex;
+      position: absolute;
+      font-weight: bold;
+      font-style: italic;
+      font-family: Unna, sans-serif;
+      font-size: 24px;
+      line-height: 30px;
+      z-index: 5;
+      color: white;
+      text-transform: uppercase;
+      align-items: center;
+      justify-content: center;
+
+      &.new {
+        background-color: $new-badge--background;
+        color: $new-badge--color;
+        top: -1.25rem;
+        right: -0.75rem;
+        height: 85px;
+        width: 85px;
+        border-radius: 50%;
+      }
+
+      &.update {
+        background-color: $update-badge--background;
+        color: $update-badge--color;
+        padding: 0 24px;
+        top: #{$card-height--desktop - 30};
+
+        @media only screen and (max-width : 960px) {
+          top: #{$card-height--mobile - 30};
+        }
+      }
+    }
+
+    .card-image {
+      background-size: cover;
+      height: $card-height--desktop;
+
+      @media only screen and (max-width : 960px) {
+        height: $card-height--mobile;
+      }
+    }
+
+    .card-content {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-evenly;
+      height: 200px;
+      padding: 15px;
+
+      h3, h4 {
+        margin-top: 0;
+        margin-bottom: 0;
+      }
+
+      h3 {
+        line-height: 40px;
+        font-size: 32px;
+      }
+
+      h4 {
+        font-size: 24px;
+        line-height: 32px;
+      }
+
+      .headline,
+      .description {
+        font-family: lato, sans-serif;
+      }
+
+      .headline {
+        font-weight: 300;
+        line-height: 16px;
+        font-size: 12px;
+
+        &.headline {
+          text-transform: uppercase;
+        }
+      }
+
+      .description {
+        line-height: 24px;
+        font-size: 14px;
+      }
+    }
+
+    .separator {
+      width: 50px;
+      border-top: 0.25px solid black;
+      margin: 10px auto;
+    }
+  }
+
+  &.subcase_list {
+    color: #0F0F0F;
+
+    .card {
+      text-align: left;
+
+      .card-content {
+        height: 100px;
+
+        h3, h4 {
+          text-align: left;
+        }
+      }
+
+      .separator {
+        display: none;
+      }
+
+      .description {
+        font-family: lato, sans-serif;
+        font-weight: 300;
+        line-height: 16px;
+        font-size: 12px;
+      }
+    }
+  }
+}
