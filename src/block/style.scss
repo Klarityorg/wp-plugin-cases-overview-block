@@ -1,4 +1,7 @@
 .wp-block-klarity-cases-overview {
+  a {
+    text-decoration: none !important;
+  }
   .card {
     padding: 0;
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
@@ -55,6 +58,7 @@
       justify-content: space-evenly;
       height: 200px;
       padding: 15px;
+      color: black;
 
       h3, h4 {
         margin-top: 0;
