@@ -25,13 +25,14 @@ function cases_overview_editor_assets() { // phpcs:ignore
 		'cases-overview-block-js',
 		plugins_url( '/dist/blocks.build.js', __DIR__),
 		['wp-blocks', 'wp-i18n', 'wp-element', 'wp-editor'],
-		true
+    filemtime( plugin_dir_path( __DIR__ ) . 'dist/blocks.build.js' )
 	);
 
 	wp_enqueue_style(
 		'cases-overview-editor-css',
 		plugins_url( 'dist/blocks.editor.build.css', __DIR__),
-		['wp-edit-blocks']
+		['wp-edit-blocks'],
+    filemtime( plugin_dir_path( __DIR__ ) . 'dist/blocks.editor.build.css' )
 	);
 }
 
