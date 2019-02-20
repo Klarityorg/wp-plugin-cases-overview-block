@@ -1,8 +1,8 @@
 <?php
 /**
- * Plugin Name: Cases overview block
+ * Plugin Name: Klarity cases overview block
  * Plugin URI: https://github.com/ahmadawais/create-guten-block/
- * Description: Cases overview block
+ * Description: Klarity cases overview block
  * Author: Klarity
  * Author URI: https://klarity.org/
  * Version: 1.0.0
