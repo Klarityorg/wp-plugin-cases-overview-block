@@ -1,5 +1,5 @@
 === Sub-pages block ===
-Contributors: Klarity team
+Contributors: klarityorg
 Tags: sub-pages, block, gutenberg
 Requires at least: 5.0.0
 Tested up to: 5.0.3
