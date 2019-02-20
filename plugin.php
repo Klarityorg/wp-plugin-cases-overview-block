@@ -4,7 +4,7 @@
  * Plugin URI: https://github.com/ahmadawais/create-guten-block/
  * Description: Klarity cases overview block
  * Author: Klarity
- * Author URI: https://klarity.org/
+ * Author URI: https://github.com/Klarityorg
  * Version: 1.0.0
  * License: Closed source
  *
