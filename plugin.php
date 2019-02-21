@@ -6,7 +6,7 @@
  * Author: Klarity
  * Author URI: https://github.com/Klarityorg
  * Version: 1.0.0
- * License: Closed source
+ * License: MIT
  *
  * @package Klarity
  */
