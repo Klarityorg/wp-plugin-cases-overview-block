@@ -73,7 +73,7 @@ function cases_overview_list($attributes) {
 
 	if (count($childpages) > 0) {
         $headerTag = $layoutType === 'case_list' ? 'h3' : 'h4';
-        return '<div class="wp-block-klarity-klarity-cases-overview row '.$layoutType.'">'
+        return '<div class="wp-block-klarity-klarity-cases-overview-block row '.$layoutType.'">'
         .implode(
             '',
             array_map(function($page) use($headerTag, $isEditContext) {
@@ -129,7 +129,7 @@ function cases_overview_list($attributes) {
 
 function register_block_callback() {
     if(function_exists( 'register_block_type' ) ) {
-        register_block_type( 'klarity/klarity-cases-overview', [
+        register_block_type( 'klarity/klarity-cases-overview-block', [
             'render_callback' => 'cases_overview_list',
             'attributes' => [
                 'layout' => [

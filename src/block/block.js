@@ -36,7 +36,7 @@ const caseStatusDescriptions = {
 	resolved: "Will match pages with metadata 'case_status' set to 'resolved'"
 };
 
-registerBlockType('klarity/klarity-cases-overview', {
+registerBlockType('klarity/klarity-cases-overview-block', {
 	title: __('Cases overview'),
 	category: 'layout',
 	icon: iconEl,
@@ -117,7 +117,7 @@ registerBlockType('klarity/klarity-cases-overview', {
 			</div>}
 			<div>{layouts[layout].description}</div>
 			<ServerSideRender
-				block="klarity/klarity-cases-overview"
+				block="klarity/klarity-cases-overview-block"
 				attributes={ props.attributes } />
 		</form>;
 	},
