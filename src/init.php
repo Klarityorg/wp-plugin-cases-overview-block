@@ -10,7 +10,7 @@ if (!defined('ABSPATH')) {
  * @uses {wp-editor} for WP editor styles.
  * @since 1.0.0
  */
-function klarit_cases_overview_block_assets() {
+function klarity_cases_overview_block_assets() {
   wp_enqueue_style(
     'cases-overview-style-css', // Handle.
     plugins_url('dist/blocks.style.build.css', __DIR__),
@@ -18,9 +18,9 @@ function klarit_cases_overview_block_assets() {
   );
 }
 
-add_action('enqueue_block_assets', 'klarit_cases_overview_block_assets');
+add_action('enqueue_block_assets', 'klarity_cases_overview_block_assets');
 
-function klarit_cases_overview_editor_assets() { // phpcs:ignore
+function klarity_cases_overview_editor_assets() { // phpcs:ignore
   wp_enqueue_script(
     'cases-overview-block-js',
     plugins_url('/dist/blocks.build.js', __DIR__),
@@ -36,7 +36,7 @@ function klarit_cases_overview_editor_assets() { // phpcs:ignore
   );
 }
 
-add_action('enqueue_block_editor_assets', 'klarit_cases_overview_editor_assets');
+add_action('enqueue_block_editor_assets', 'klarity_cases_overview_editor_assets');
 
 function get_klarity_cases($parentId = null, $requiredMeta = []) {
   $args = [
