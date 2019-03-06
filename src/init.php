@@ -10,7 +10,7 @@ if (!defined('ABSPATH')) {
  * @uses {wp-editor} for WP editor styles.
  * @since 1.0.0
  */
-function cases_overview_block_assets() {
+function klarit_cases_overview_block_assets() {
   wp_enqueue_style(
     'cases-overview-style-css', // Handle.
     plugins_url('dist/blocks.style.build.css', __DIR__),
@@ -18,9 +18,9 @@ function cases_overview_block_assets() {
   );
 }
 
-add_action('enqueue_block_assets', 'cases_overview_block_assets');
+add_action('enqueue_block_assets', 'klarit_cases_overview_block_assets');
 
-function cases_overview_editor_assets() { // phpcs:ignore
+function klarit_cases_overview_editor_assets() { // phpcs:ignore
   wp_enqueue_script(
     'cases-overview-block-js',
     plugins_url('/dist/blocks.build.js', __DIR__),
@@ -36,9 +36,9 @@ function cases_overview_editor_assets() { // phpcs:ignore
   );
 }
 
-add_action('enqueue_block_editor_assets', 'cases_overview_editor_assets');
+add_action('enqueue_block_editor_assets', 'klarit_cases_overview_editor_assets');
 
-function get_cases($parentId = null, $requiredMeta = []) {
+function get_klarity_cases($parentId = null, $requiredMeta = []) {
   $args = [
     'post_type' => 'page',
     'sort_column' => 'menu_order',
@@ -55,7 +55,7 @@ function get_cases($parentId = null, $requiredMeta = []) {
   return get_pages($args);
 }
 
-function cases_overview_list($attributes) {
+function render_klarity_cases_overview_list($attributes) {
   global $post;
   $isEditContext = isset($_GET['context']) && $_GET['context'] === 'edit';
   $layoutType = $attributes['layout'] ?? '';
@@ -65,10 +65,10 @@ function cases_overview_list($attributes) {
   $parent = $filter === 'in_sub_pages' ? $post->ID : null;
 
   $childpages = array_merge(
-    $showUnresolved ? get_cases($parent, ['case_status' => 'new']) : [],
-    $showUnresolved ? get_cases($parent, ['case_status' => 'ongoing']) : [],
-    $showUnresolved ? get_cases($parent, ['case_status' => 'update']) : [],
-    $showResolved ? get_cases($parent, ['case_status' => 'resolved']) : []
+    $showUnresolved ? get_klarity_cases($parent, ['case_status' => 'new']) : [],
+    $showUnresolved ? get_klarity_cases($parent, ['case_status' => 'ongoing']) : [],
+    $showUnresolved ? get_klarity_cases($parent, ['case_status' => 'update']) : [],
+    $showResolved ? get_klarity_cases($parent, ['case_status' => 'resolved']) : []
   );
 
   if (count($childpages) > 0) {
@@ -126,10 +126,10 @@ function cases_overview_list($attributes) {
   return '';
 }
 
-function register_block_callback() {
+function register_klarity_case_block_callback() {
   if (function_exists('register_block_type')) {
     register_block_type('klarity/klarity-cases-overview-block', [
-      'render_callback' => 'cases_overview_list',
+      'render_callback' => 'render_klarity_cases_overview_list',
       'attributes' => [
         'layout' => [
           'type' => 'string',
@@ -152,6 +152,6 @@ function register_block_callback() {
   }
 }
 
-add_action('plugins_loaded', 'register_block_callback');
+add_action('plugins_loaded', 'register_klarity_case_block_callback');
 
-add_shortcode('cases-overview', 'cases_overview_list');
+add_shortcode('klarity-cases-overview', 'render_klarity_cases_overview_list');
