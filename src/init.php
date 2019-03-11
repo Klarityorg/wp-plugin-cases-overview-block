@@ -57,7 +57,6 @@ function get_klarity_cases($parentId = null, $requiredMeta = []) {
 
 function render_klarity_cases_overview_list($attributes) {
   global $post;
-  $isEditContext = isset($_GET['context']) && $_GET['context'] === 'edit';
   $layoutType = $attributes['layout'] ?? '';
   $filter = $attributes['filter'] ?? '';
   $showUnresolved = $attributes['showUnresolved'] ?? false;
@@ -76,7 +75,7 @@ function render_klarity_cases_overview_list($attributes) {
     return '<div class="wp-block-klarity-klarity-cases-overview-block row ' . $layoutType . '">'
       . implode(
         '',
-        array_unique(array_map(function ($page) use ($headerTag, $isEditContext) {
+        array_unique(array_map(function ($page) use ($headerTag) {
           $metadata = get_post_meta($page->ID);
           $headline = isset($metadata['headline'])
             ? '<div class="headline">' . $metadata['headline'][0] . '</div>'
@@ -89,28 +88,47 @@ function render_klarity_cases_overview_list($attributes) {
             : '';
 
           $shortDescription = get_post_meta($page->ID, 'short_description', true);
-          $link = $isEditContext ? 'javascript:void(0)' : get_permalink($page);
 
-          preg_match('/videoThumbnail":"(.+)"/', $page->post_content, $matches);
-          $image = $matches[1]
+          preg_match('#videoThumbnail":"(.+)"#', $page->post_content, $thumbnailUrlMatch);
+          $imageUrl = $thumbnailUrlMatch[1]
             ?? wp_get_attachment_image_src(get_post_thumbnail_id($page->ID), 'single-post-thumbnail')[0]
             ?? 'http://placehold.it/200x200';
 
+          preg_match('#"link":"(https://player.vimeo.com/video/\d+)#', $page->post_content, $videoUrlMatch);
+          $videoUrl = $videoUrlMatch[1] ?? null;
+
+          if (isset($videoUrl)) {
+            wp_enqueue_script(
+              'case_overview_header_video-handler-js',
+              plugins_url('/src/block/show-video.js', __DIR__),
+              [],
+              true
+            );
+            $cardHeader =
+              "<div class='video-container' onclick='showVideo(this, \"$videoUrl\")'>
+        <div class='thumbnail-container' style='background-image:url(\"$imageUrl\")'>
+          <img class='play-icon' alt='Play' src='" . plugin_dir_url(__DIR__) . "/assets/play_button.png'/>
+        </div>
+	    </div>";
+          }
+          else {
+            $cardHeader = "
+              <div class='thumbnail-container' style='background-image:url(\"$imageUrl\")'></div>";
+          }
+
           return "
             <div class='col s12 m6'>
-              <a href='$link'>
-                <div class='card'>
-                  $markAsNew
-                  $markAsUpdate
-                  <div class='card-image' style=\"background-image: url('$image')\"></div>
-                  <div class='card-content'>
-                    $headline
-                    <$headerTag>{$page->post_title}</$headerTag>
-                    <div class='separator'></div>
-                    <div class='description'>$shortDescription</div>
-                  </div>
+              <div class='card'>
+                $markAsNew
+                $markAsUpdate
+                $cardHeader
+                <div class='card-content'>
+                  $headline
+                  <$headerTag>{$page->post_title}</$headerTag>
+                  <div class='separator'></div>
+                  <div class='description'>$shortDescription</div>
                 </div>
-              </a>
+              </div>
             </div>";
         }, $childpages)))
       . '</div>';

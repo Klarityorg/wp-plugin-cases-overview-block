@@ -49,12 +49,49 @@
       }
     }
 
-    .card-image {
-      background-size: cover;
-      height: $card-height--desktop;
+    .video-container {
+      width: 100% !important;
+      max-width: 100% !important;
+      height: $height_desktop !important;
+      max-height: $height_desktop;
+      margin-top: $top-margin_desktop;
+      padding-top: 0 !important;
+      padding-bottom: 0 !important;
 
-      @media only screen and (max-width : 960px) {
-        height: $card-height--mobile;
+      &.full-width {
+        padding: 0 !important;
+        background-color: black;
+      }
+      @media screen and (max-width: 600px) {
+        max-height: $height_mobile;
+        margin-top: $top-margin_mobile;
+      }
+
+      .thumbnail-container {
+        position: relative;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        height: 100%;
+
+        &.full-width {
+          background-size: cover;
+        }
+
+        .video {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          background-color: black;
+        }
+
+        .play-icon {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+        }
       }
     }
 
