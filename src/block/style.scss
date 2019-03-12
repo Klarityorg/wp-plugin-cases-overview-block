@@ -49,11 +49,19 @@
       }
     }
 
+    .thumbnail-container {
+      position: relative;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+      height: $card-height--desktop;
+    }
+
     .video-container {
       width: 100% !important;
       max-width: 100% !important;
-      height: $height_desktop !important;
-      max-height: $height_desktop;
+      height: $card-height--desktop !important;
+      max-height: $card-height--desktop;
       margin-top: $top-margin_desktop;
       padding-top: 0 !important;
       padding-bottom: 0 !important;
@@ -67,31 +75,19 @@
         margin-top: $top-margin_mobile;
       }
 
-      .thumbnail-container {
-        position: relative;
-        background-position: center;
-        background-repeat: no-repeat;
-        background-size: cover;
-        height: 100%;
+      .video {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        background-color: black;
+      }
 
-        &.full-width {
-          background-size: cover;
-        }
-
-        .video {
-          position: absolute;
-          top: 0;
-          left: 0;
-          width: 100%;
-          background-color: black;
-        }
-
-        .play-icon {
-          position: absolute;
-          top: 50%;
-          left: 50%;
-          transform: translate(-50%, -50%);
-        }
+      .play-icon {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
       }
     }
 
