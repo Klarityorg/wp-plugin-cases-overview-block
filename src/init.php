@@ -38,6 +38,11 @@ function klarity_cases_overview_editor_assets() { // phpcs:ignore
 
 add_action('enqueue_block_editor_assets', 'klarity_cases_overview_editor_assets');
 
+function get_page_title_for_slug($page_slug) {
+  $page = get_page_by_path($page_slug, OBJECT);
+  return isset($page);
+}
+
 function get_klarity_cases($parentId = null, $requiredMeta = []) {
   $args = [
     'post_type' => 'page',
@@ -70,21 +75,23 @@ function render_klarity_cases_overview_list($attributes) {
     $showResolved ? get_klarity_cases($parent, ['case_status' => 'resolved']) : []
   );
 
+  $progressPageExists = get_page_title_for_slug('case-progress');
+
   if (count($childpages) > 0) {
     $headerTag = $layoutType === 'case_list' ? 'h3' : 'h4';
-    return '<div class="wp-block-klarity-klarity-cases-overview-block row ' . $layoutType . '">'
+    return "<div class='wp-block-klarity-klarity-cases-overview-block row $layoutType'>"
       . implode(
         '',
-        array_unique(array_map(function ($page) use ($headerTag, $layoutType) {
+        array_unique(array_map(function ($page) use ($showResolved, $headerTag, $layoutType, $progressPageExists) {
           $metadata = get_post_meta($page->ID);
           $headline = isset($metadata['headline'])
-            ? '<div class="headline">' . $metadata['headline'][0] . '</div>'
+            ? "<div class='headline'>{$metadata['headline'][0]}</div>"
             : '';
           $markAsNew = isset($metadata['case_status']) && $metadata['case_status'][0] === 'new'
-            ? '<div class="new">' . __('new') . '</div>'
+            ? "<div class='new'>{__('new')}</div>"
             : '';
           $markAsUpdate = isset($metadata['case_status']) && $metadata['case_status'][0] === 'update'
-            ? '<div class="update">' . __('update') . '</div>'
+            ? "<div class='update'>{__('update')}</div>"
             : '';
 
           $shortDescription = get_post_meta($page->ID, 'short_description', true);
@@ -95,6 +102,14 @@ function render_klarity_cases_overview_list($attributes) {
             ?? 'http://placehold.it/200x200';
 
           if ($layoutType === 'subcase_list') {
+            if ($showResolved) {
+              return "<div class='col s12 m6'>
+                <div class='row case solved'>
+                  <div class='col s4 thumbnail-container' style='background-image:url(\"$imageUrl\")'></div>
+                  <div class='col s8 description'>$shortDescription</div>
+                </div>
+              </div>";
+            }
             preg_match('#"link":"(https://player.vimeo.com/video/\d+)#', $page->post_content, $videoUrlMatch);
             $videoUrl = $videoUrlMatch[1] ?? null;
 
@@ -105,31 +120,44 @@ function render_klarity_cases_overview_list($attributes) {
                 [],
                 true
               );
-              $cardHeader =
+              $cardThumbnail =
                 "<div class='video-container' onclick='showVideo(this, \"$videoUrl\")'>
                   <div class='thumbnail-container' style='background-image:url(\"$imageUrl\")'>
                     <img class='play-icon' alt='Play' src='" . plugin_dir_url(__DIR__) . "/assets/play_button.png'/>
                   </div>
                 </div>";
             }
+
+            if ($progressPageExists) {
+              $caseProgress = "<div class='case-progress'>
+                <a href='/case-progress'>Case progress</a>
+                <div style='line-height: 8px;font-size: 11px'>TODO</div>  
+              </div>";
+            }
+
+          }
+          else {
+            $caseProgress = "
+              <div class='separator'></div>
+              <div class='description'>$shortDescription</div>";
           }
 
-          if (!isset($cardHeader)) {
-            $cardHeader = "<div class='thumbnail-container' style='background-image:url(\"$imageUrl\")'></div>";
+          if (!isset($cardThumbnail)) {
+            $cardThumbnail = "<div class='thumbnail-container' style='background-image:url(\"$imageUrl\")'></div>";
           }
-
-          $cardWrapper = "<div class='card'>
+          if (!isset($caseProgress)) {
+            $caseProgress = '';
+          }
+          $cardWrapper = "<div class='case unsolved card'>
             $markAsNew
             $markAsUpdate
-            $cardHeader
-            <div class='card-content'>
+            $cardThumbnail
+            <div class='content'>
               $headline
               <$headerTag>{$page->post_title}</$headerTag>
-              <div class='separator'></div>
-              <div class='description'>$shortDescription</div>
+              $caseProgress
             </div>
           </div>";
-
           if ($layoutType === 'case_list') {
             $isEditContext = isset($_GET['context']) && $_GET['context'] === 'edit';
             $link = $isEditContext ? 'javascript:void(0)' : get_permalink($page);
