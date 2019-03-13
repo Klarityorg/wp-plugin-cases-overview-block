@@ -93,6 +93,9 @@ function render_klarity_cases_overview_list($attributes) {
           $markAsUpdate = isset($metadata['case_status']) && $metadata['case_status'][0] === 'update'
             ? "<div class='update'>{__('update')}</div>"
             : '';
+          $caseResolution = isset($metadata['case_status']) && $metadata['case_status'][0] === 'resolved'
+            ? 'resolved'
+            : 'unresolved';
 
           $shortDescription = get_post_meta($page->ID, 'short_description', true);
 
@@ -102,9 +105,9 @@ function render_klarity_cases_overview_list($attributes) {
             ?? 'http://placehold.it/200x200';
 
           if ($layoutType === 'subcase_list') {
-            if ($showResolved) {
+            if ($caseResolution === 'resolved') {
               return "<div class='col s12 m6'>
-                <div class='row case solved'>
+                <div class='row case $caseResolution'>
                   <div class='col s4 thumbnail-container' style='background-image:url(\"$imageUrl\")'></div>
                   <div class='col s8 description'>$shortDescription</div>
                 </div>
@@ -148,11 +151,11 @@ function render_klarity_cases_overview_list($attributes) {
           if (!isset($caseProgress)) {
             $caseProgress = '';
           }
-          $cardWrapper = "<div class='case unsolved card'>
+          $cardWrapper = "<div class='case $caseResolution card'>
             $markAsNew
             $markAsUpdate
             $cardThumbnail
-            <div class='content'>
+            <div class='description'>
               $headline
               <$headerTag>{$page->post_title}</$headerTag>
               $caseProgress

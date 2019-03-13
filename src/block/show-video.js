@@ -11,9 +11,7 @@ function showVideo(elem, link) {
   });
 
   jQuery(elem)
-      .append(jQuery('<div>')
-          .addClass("header-video")
-          .append(iframe))
+      .append(iframe)
       .children(".thumbnail-container").remove();
 
   if (typeof ga === "function")

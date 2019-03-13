@@ -7,34 +7,16 @@
   .case {
     padding: 0;
     font-family: Lato, sans-serif;
+    text-align: center;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
 
-    &.solved {
-      margin-top: $top-margin_desktop;
-      height: $case-height-solved;
-
+    &.resolved {
       .thumbnail-container {
-        height: 100%;
         background-size: cover;
-      }
-
-      .description {
-        font-size: 18px;
-        font-weight: 300;
-
-        @media screen and (min-width: 600px) {
-          padding-right: 30px;
-        }
-      }
-
-      .content {
-        height: 200px;
       }
     }
 
-    &.unsolved {
-      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
-      text-align: center;
-
+    &.unresolved {
       .new, .update {
         display: flex;
         position: absolute;
@@ -76,41 +58,6 @@
         background-position: center;
         background-repeat: no-repeat;
         background-size: cover;
-        height: $case-height--desktop;
-      }
-
-      .video-container {
-        width: 100% !important;
-        max-width: 100% !important;
-        height: $case-height--desktop !important;
-        max-height: $case-height--desktop;
-        margin-top: $top-margin_desktop;
-        padding-top: 0 !important;
-        padding-bottom: 0 !important;
-
-        &.full-width {
-          padding: 0 !important;
-          background-color: black;
-        }
-        @media screen and (max-width: 600px) {
-          max-height: $case-height--mobile;
-          margin-top: $top-margin_mobile;
-        }
-
-        .video {
-          position: absolute;
-          top: 0;
-          left: 0;
-          width: 100%;
-          background-color: black;
-        }
-
-        .play-icon {
-          position: absolute;
-          top: 50%;
-          left: 50%;
-          transform: translate(-50%, -50%);
-        }
       }
     }
 
@@ -118,7 +65,11 @@
       color: $text-color;
     }
 
-    .content {
+    .thumbnail-container {
+      height: $case-height--desktop;
+    }
+
+    .description {
       display: flex;
       flex-direction: column;
       justify-content: space-evenly;
@@ -170,21 +121,85 @@
   }
 
   &.subcase_list {
-    .case.card {
-      .content {
-        height: 120px;
+    .case {
+      text-align: left;
 
-        * {
-          text-align: left;
+      &.unresolved {
+        .video-container {
+          width: 100% !important;
+          max-width: 100% !important;
+          height: $case-height--desktop !important;
+          max-height: $case-height--desktop;
+          margin-top: $top-margin_desktop;
+          padding-top: 0 !important;
+          padding-bottom: 0 !important;
+
+          @media screen and (max-width: 600px) {
+            max-height: $case-height--mobile;
+            margin-top: $top-margin_mobile;
+          }
+
+          iframe {
+            width: 100% !important;
+            height: 100% !important;
+          }
+
+          .play-icon {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+          }
         }
 
-        .case-progress {
-          a {
-            line-height: 20px;
-            font-size: 12px;
-            color: $link-color;
-            text-decoration: underline !important;
+        .description {
+          height: $description-height-unresolved--mobile;
+
+          @media screen and (min-width: 600px) {
+            height: $description-height-unresolved--desktop;
           }
+
+          .case-progress {
+            a {
+              line-height: 20px;
+              font-size: 12px;
+              color: $link-color;
+              text-decoration: underline !important;
+            }
+          }
+        }
+      }
+
+      &.resolved {
+        box-shadow: none;
+        margin-top: $top-margin_desktop;
+        height: $case-height-resolved--mobile;
+
+        @media screen and (min-width: 600px) {
+          height: $case-height-resolved--desktop;
+        }
+
+        .thumbnail-container {
+          height: 100%;
+        }
+        .description {
+          justify-content: flex-start;
+          font-size: 14px;
+          font-weight: 300;
+          padding-top: 0;
+          padding-bottom: 0;
+
+          @media screen and (min-width: 600px) {
+            font-size: 18px;
+            padding-right: 30px;
+          }
+        }
+      }
+
+      .description {
+        height: 100%;
+        * {
+          text-align: left;
         }
       }
     }
