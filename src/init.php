@@ -83,11 +83,13 @@ function render_klarity_cases_overview_list($attributes) {
     $showResolved ? get_klarity_cases($parent, ['case_status' => 'resolved']) : []
   );
 
+  $resolutionClass = $showResolved ? 'resolved_cases' : 'unresolved_cases';
+
   $progressPageExists = get_page_title_for_slug('case-progress');
 
   if (count($childpages) > 0) {
     $headerTag = $layoutType === 'case_list' ? 'h3' : 'h4';
-    return "<div class='wp-block-klarity-klarity-cases-overview-block row $layoutType'>"
+    return "<div class='wp-block-klarity-klarity-cases-overview-block row $layoutType $resolutionClass'>"
       . implode(
         '',
         array_unique(array_map(function ($page) use ($showResolved, $headerTag, $layoutType, $progressPageExists) {

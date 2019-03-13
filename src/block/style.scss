@@ -1,14 +1,9 @@
 .wp-block-klarity-klarity-cases-overview-block {
-  margin-top: -7px !important;
+  background: inherit;
+  margin-top: -8px !important;
 
-  .case-wrapper {
-    &:nth-child(n+#{$hide-resolved-subcases-from--desktop}) {
-      display: none;
-
-      + .see-all {
-        display: initial;
-      }
-    }
+  &.case_list {
+    @include hide-elements-starting-at('.case-wrapper', $hide-cases-from);
   }
 
   a {
@@ -127,6 +122,19 @@
   }
 
   &.subcase_list {
+    &.unresolved_cases {
+      @include hide-elements-starting-at('.case-wrapper', $hide-unresolved-subcases-from);
+    }
+    &.resolved_cases {
+      @media screen and (max-width: 600px) {
+        @include hide-elements-starting-at('.case-wrapper', $hide-resolved-subcases-from--mobile);
+      }
+      @media screen and (min-width: 600px) {
+        @include hide-elements-starting-at('.case-wrapper', $hide-resolved-subcases-from--desktop);
+      }
+
+    }
+
     .case {
       text-align: left;
 
@@ -222,6 +230,20 @@
 
     &.see-all {
       display: none;
+    }
+
+    &.see-less {
+      background: inherit;
+
+      &.sticky {
+        @media screen and (max-width: 600px) {
+          position: fixed;
+          width: 100%;
+          right: 0;
+          bottom: 0;
+          padding: 15px calc(15px + 0.75rem) 15px 0;
+        }
+      }
     }
   }
 }

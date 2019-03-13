@@ -22,4 +22,16 @@ $description-height-unresolved--desktop: 120px;
 $hide-cases-from: 3;
 $hide-unresolved-subcases-from: 3;
 $hide-resolved-subcases-from--mobile: 5;
-$hide-resolved-subcases-from--desktop: 5;
+$hide-resolved-subcases-from--desktop: 7;
+
+@mixin hide-elements-starting-at($selector, $lowest-hidden-element) {
+  #{$selector} {
+    &:nth-child(n+#{$lowest-hidden-element}) {
+      display: none;
+
+      + .see-all {
+        display: initial;
+      }
+    }
+  }
+}
