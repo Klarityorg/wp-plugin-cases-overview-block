@@ -61,6 +61,14 @@ function get_klarity_cases($parentId = null, $requiredMeta = []) {
 }
 
 function render_klarity_cases_overview_list($attributes) {
+
+  wp_enqueue_script(
+    'case_overview_see_all_see_less-js',
+    plugins_url('/src/block/see-all-see-less.js', __DIR__),
+    [],
+    true
+  );
+
   global $post;
   $layoutType = $attributes['layout'] ?? '';
   $filter = $attributes['filter'] ?? '';
@@ -106,7 +114,7 @@ function render_klarity_cases_overview_list($attributes) {
 
           if ($layoutType === 'subcase_list') {
             if ($caseResolution === 'resolved') {
-              return "<div class='col s12 m6'>
+              return "<div class='case-wrapper col s12 m6'>
                 <div class='row case $caseResolution'>
                   <div class='col s4 thumbnail-container' style='background-image:url(\"$imageUrl\")'></div>
                   <div class='col s8 description'>$shortDescription</div>
@@ -167,9 +175,11 @@ function render_klarity_cases_overview_list($attributes) {
             $cardWrapper = "<a href='$link'>$cardWrapper</a>";
           }
 
-          return "<div class='col s12 m6'>$cardWrapper</div>";
+          return "<div class='case-wrapper col s12 m6'>$cardWrapper</div>";
         }, $childpages)))
-      . '</div>';
+      . "<div class='col right see-all'>See all</div>
+        <div class='col right see-less hide'>See less</div>
+      </div>";
   }
   switch ($filter) {
     case 'all':
