@@ -218,6 +218,40 @@
           text-align: left;
         }
       }
+      .case-progress-title{
+        font-size: 12px;
+        margin: 0px;
+        line-height: 16px;
+        text-align: left;
+        color: #0F0F0F;
+        display:inline;
+      }
+      .case-progress {
+        display:flex;
+        .case-block {
+          &.step-0 {
+            background-color:#E1E1E1;
+          }
+          &.step-1 {
+            background-color: #78A8DA;
+          }
+          &.step-2 {
+            background: linear-gradient(90deg, #78A8DA, #96DDEB 124%);
+          }
+          &.step-3 {
+            background: linear-gradient(90deg,  #96DDEB 25.94%, #59D27B 73.31%);
+          }
+          &.step-4 {
+            background: linear-gradient(90deg, #59D27B -21.32%, #1FA24A 92.65%);
+          }
+          &.step-5 {
+            background-color: #1FA24A;
+          }
+          width:20%;
+          height:8px;
+          margin-right:2px;
+        }
+      }
     }
   }
 

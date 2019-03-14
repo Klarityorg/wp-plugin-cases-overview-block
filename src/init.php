@@ -85,14 +85,12 @@ function render_klarity_cases_overview_list($attributes) {
 
   $resolutionClass = $showResolved ? 'resolved_cases' : 'unresolved_cases';
 
-  $progressPageExists = get_page_title_for_slug('case-progress');
-
   if (count($childpages) > 0) {
     $headerTag = $layoutType === 'case_list' ? 'h3' : 'h4';
     return "<div class='wp-block-klarity-klarity-cases-overview-block row $layoutType $resolutionClass'>"
       . implode(
         '',
-        array_unique(array_map(function ($page) use ($showResolved, $headerTag, $layoutType, $progressPageExists) {
+        array_unique(array_map(function ($page) use ($showResolved, $headerTag, $layoutType) {
           $metadata = get_post_meta($page->ID);
           $headline = isset($metadata['headline'])
             ? "<div class='headline'>{$metadata['headline'][0]}</div>"
@@ -108,6 +106,8 @@ function render_klarity_cases_overview_list($attributes) {
             : 'unresolved';
 
           $shortDescription = get_post_meta($page->ID, 'short_description', true);
+
+          $progressPageExists = isset($metadata['case_progress']);
 
           preg_match('#videoThumbnail":"(.+)"#', $page->post_content, $thumbnailUrlMatch);
           $imageUrl = $thumbnailUrlMatch[1]
@@ -142,10 +142,13 @@ function render_klarity_cases_overview_list($attributes) {
             }
 
             if ($progressPageExists) {
-              $caseProgress = "<div class='case-progress'>
-                <a href='/case-progress'>Case progress</a>
-                <div style='line-height: 8px;font-size: 11px'>TODO</div>  
-              </div>";
+              $progress = get_post_meta($page->ID, 'case_progress', true);
+              $caseProgress = "<p class='case-progress-title'>Case progress</p><div class='case-progress'>";
+              foreach (range(1, 5) as $number) {
+                $step = $number <= $progress ? $number : 0;
+                $caseProgress .= "<div class='case-block step-".$step."'></div>";
+              }
+              $caseProgress .= "</div>";
             }
 
           }
