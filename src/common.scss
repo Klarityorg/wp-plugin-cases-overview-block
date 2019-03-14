@@ -5,6 +5,33 @@ $update-badge--background: #32323C;
 $update-badge--color: #ECECFF;
 
 $text-color: #0F0F0F;
+$link-color: #2172EB;
 
-$card-height--desktop: 190px;
-$card-height--mobile: 150px;
+$top-margin_desktop: 36px;
+$top-margin_mobile: 24px;
+
+$case-height--desktop: 190px;
+$case-height--mobile: 150px;
+
+$case-height-resolved--mobile: 70px;
+$case-height-resolved--desktop: 90px;
+
+$description-height-unresolved--mobile: 90px;
+$description-height-unresolved--desktop: 120px;
+
+$hide-cases-from: 3;
+$hide-unresolved-subcases-from: 3;
+$hide-resolved-subcases-from--mobile: 5;
+$hide-resolved-subcases-from--desktop: 7;
+
+@mixin hide-elements-starting-at($selector, $lowest-hidden-element) {
+  #{$selector} {
+    &:nth-child(n+#{$lowest-hidden-element}) {
+      display: none;
+
+      + .see-all {
+        display: initial;
+      }
+    }
+  }
+}
