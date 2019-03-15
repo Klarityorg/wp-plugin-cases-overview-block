@@ -180,10 +180,10 @@
         }
 
         .description {
-          height: $description-height-unresolved--mobile;
+          min-height: $description-height-unresolved--mobile;
 
           @media screen and (min-width: 600px) {
-            height: $description-height-unresolved--desktop;
+            min-height: $description-height-unresolved--desktop;
           }
 
           .case-progress {
