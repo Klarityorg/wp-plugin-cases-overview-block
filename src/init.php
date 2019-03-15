@@ -109,7 +109,7 @@ function render_klarity_cases_overview_list($attributes) {
 
           $progressPageExists = isset($metadata['case_progress']);
 
-          preg_match('#videoThumbnail":"(.+)"#', $page->post_content, $thumbnailUrlMatch);
+          preg_match('#videoThumbnail":"([^"]+)"#', $page->post_content, $thumbnailUrlMatch);
           $imageUrl = $thumbnailUrlMatch[1]
             ?? wp_get_attachment_image_src(get_post_thumbnail_id($page->ID), 'single-post-thumbnail')[0]
             ?? 'http://placehold.it/200x200';
@@ -127,6 +127,12 @@ function render_klarity_cases_overview_list($attributes) {
             $videoUrl = $videoUrlMatch[1] ?? null;
 
             if (isset($videoUrl)) {
+              preg_match('#"videoDuration":"([^"]+)#', $page->post_content, $videoDurationMatch);
+              $videoDuration = $videoDurationMatch[1] ?? null;
+              $videoContent = is_null($videoDuration)
+                ? ''
+                : "<div class='video-timestamp'>$videoDuration</div>";
+
               wp_enqueue_script(
                 'case_overview_header_video-handler-js',
                 plugins_url('/src/block/show-video.js', __DIR__),
@@ -137,6 +143,7 @@ function render_klarity_cases_overview_list($attributes) {
                 "<div class='video-container' onclick='showVideo(this, \"$videoUrl\")'>
                   <div class='thumbnail-container' style='background-image:url(\"$imageUrl\")'>
                     <img class='play-icon' alt='Play' src='" . plugin_dir_url(__DIR__) . "/assets/play_button.png'/>
+                    $videoContent
                   </div>
                 </div>";
             }

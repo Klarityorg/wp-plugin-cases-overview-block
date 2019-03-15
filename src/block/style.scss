@@ -164,6 +164,19 @@
             left: 50%;
             transform: translate(-50%, -50%);
           }
+
+          .video-timestamp {
+            position: absolute;
+            right: 5px;
+            bottom: 5px;
+            padding: 0 5px;
+            background: black;
+            color: white;
+            font-family: Lato, sans-serif;
+            font-weight: bold;
+            line-height: 15px;
+            font-size: 10px;
+          }
         }
 
         .description {
