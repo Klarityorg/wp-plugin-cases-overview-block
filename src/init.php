@@ -107,7 +107,9 @@ function render_klarity_cases_overview_list($attributes) {
 
           $shortDescription = get_post_meta($page->ID, 'short_description', true);
 
-          $progressPageExists = isset($metadata['case_progress']);
+          $caseProgress = isset($metadata['case_progress'])
+            ? get_post_meta($page->ID, 'case_progress', true)
+            : 0;
 
           preg_match('#videoThumbnail":"([^"]+)"#', $page->post_content, $thumbnailUrlMatch);
           $imageUrl = $thumbnailUrlMatch[1]
@@ -148,28 +150,23 @@ function render_klarity_cases_overview_list($attributes) {
                 </div>";
             }
 
-            if ($progressPageExists) {
-              $progress = get_post_meta($page->ID, 'case_progress', true);
-              $caseProgress = "<p class='case-progress-title'>Case progress</p><div class='case-progress'>";
-              foreach (range(1, 5) as $number) {
-                $step = $number <= $progress ? $number : 0;
-                $caseProgress .= "<div class='case-block step-".$step."'></div>";
-              }
-              $caseProgress .= "</div>";
+            $caseProgressBlock = "<p class='case-progress-title'>Case progress</p><div class='case-progress'>";
+            foreach (range(1, 5) as $number) {
+              $step = $number <= $caseProgress ? $number : 0;
+              $caseProgressBlock .= "<div class='case-block step-".$step."'></div>";
             }
+            $caseProgressBlock .= "</div>";
+
 
           }
           else {
-            $caseProgress = "
+            $caseProgressBlock = "
               <div class='separator'></div>
               <div class='description'>$shortDescription</div>";
           }
 
           if (!isset($cardThumbnail)) {
             $cardThumbnail = "<div class='thumbnail-container' style='background-image:url(\"$imageUrl\")'></div>";
-          }
-          if (!isset($caseProgress)) {
-            $caseProgress = '';
           }
           $cardWrapper = "<div class='case $caseResolution card'>
             $markAsNew
@@ -178,7 +175,7 @@ function render_klarity_cases_overview_list($attributes) {
             <div class='description'>
               $headline
               <$headerTag>{$page->post_title}</$headerTag>
-              $caseProgress
+              $caseProgressBlock
             </div>
           </div>";
           if ($layoutType === 'case_list') {
