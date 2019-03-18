@@ -14,7 +14,7 @@ function klarity_cases_overview_block_assets() {
   wp_enqueue_style(
     'cases-overview-style-css', // Handle.
     plugins_url('dist/blocks.style.build.css', __DIR__),
-    ['wp-element'],
+    ['wp-editor'],
     filemtime(plugin_dir_path(__DIR__) . 'dist/blocks.style.build.css')
   );
 }
