@@ -14,7 +14,8 @@ function klarity_cases_overview_block_assets() {
   wp_enqueue_style(
     'cases-overview-style-css', // Handle.
     plugins_url('dist/blocks.style.build.css', __DIR__),
-    ['wp-editor']
+    ['wp-element'],
+    filemtime(plugin_dir_path(__DIR__) . 'dist/blocks.style.build.css')
   );
 }
 
@@ -162,7 +163,7 @@ function render_klarity_cases_overview_list($attributes) {
           else {
             $caseProgressBlock = "
               <div class='separator'></div>
-              <div class='description'>$shortDescription</div>";
+              <div class='short-description'>$shortDescription</div>";
           }
 
           if (!isset($cardThumbnail)) {

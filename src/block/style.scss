@@ -84,6 +84,10 @@
       }
 
       h3 {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        height: 80px;
         line-height: 40px;
         font-size: 32px;
       }
@@ -118,6 +122,13 @@
       width: 50px;
       border-top: 1px solid $text-color;
       margin: 10px auto;
+    }
+
+    .short-description {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      height: 80px;
     }
   }
 
