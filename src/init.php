@@ -140,10 +140,10 @@ function render_klarity_cases_overview_list($attributes) {
                 'case_overview_header_video-handler-js',
                 plugins_url('/src/block/show-video.js', __DIR__),
                 [],
-                true
+                filemtime( plugin_dir_path( __DIR__ ) . 'src/block/show-video.js' ) // Version: File modification time.
               );
               $cardThumbnail =
-                "<div class='video-container' onclick='showVideo(this, \"$videoUrl\")'>
+                "<div class='video-container' onclick='showCaseOverviewVideo(this, \"$videoUrl\")'>
                   <div class='thumbnail-container' style='background-image:url(\"$imageUrl\")'>
                     <img class='play-icon' alt='Play' src='" . plugin_dir_url(__DIR__) . "/assets/play_button.png'/>
                     $videoContent
