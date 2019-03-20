@@ -145,7 +145,7 @@ function render_klarity_cases_overview_list($attributes) {
               $cardThumbnail =
                 "<div class='video-container' onclick='showVideo(this, \"$videoUrl\")'>
                   <div class='thumbnail-container' style='background-image:url(\"$imageUrl\")'>
-                    <img class='play-icon' alt='Play' src='" . plugin_dir_url(__DIR__) . "/assets/play_button.png'/>
+                    <img class='play-icon' alt='Play' src='" . plugin_dir_url(__DIR__) . "/images/play_button.png'/>
                     $videoContent
                   </div>
                 </div>";
