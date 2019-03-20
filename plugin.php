@@ -5,7 +5,7 @@
  * Description: Klarity cases overview block
  * Author: Klarity
  * Author URI: https://github.com/Klarityorg
- * Version: 1.1.2
+ * Version: 1.1.3
  * License: MIT
  *
  * @package Klarity
