@@ -91,7 +91,7 @@ function render_klarity_cases_overview_list($attributes) {
     return "<div class='wp-block-klarity-klarity-cases-overview-block row $layoutType $resolutionClass'>"
       . implode(
         '',
-        array_unique(array_map(function ($page) use ($showResolved, $headerTag, $layoutType) {
+        array_unique(array_map(function ($page) use ($headerTag, $layoutType) {
           $metadata = get_post_meta($page->ID);
           $headline = isset($metadata['headline'])
             ? "<div class='headline'>{$metadata['headline'][0]}</div>"
@@ -105,6 +105,12 @@ function render_klarity_cases_overview_list($attributes) {
           $caseResolution = isset($metadata['case_status']) && $metadata['case_status'][0] === 'resolved'
             ? 'resolved'
             : 'unresolved';
+          $caseLabelColor = isset($metadata['case_label_color'])
+			? $metadata['case_label_color'][0]
+		  	: 'grey';
+          $caseLabel = isset($metadata['case_label'])
+			  ? "<div class='label $caseLabelColor'>{$metadata['case_label'][0]}</div>"
+			  : '';
 
           $shortDescription = get_post_meta($page->ID, 'short_description', true);
 
@@ -157,8 +163,6 @@ function render_klarity_cases_overview_list($attributes) {
               $caseProgressBlock .= "<div class='case-block step-".$step."'></div>";
             }
             $caseProgressBlock .= "</div>";
-
-
           }
           else {
             $caseProgressBlock = "
@@ -178,6 +182,7 @@ function render_klarity_cases_overview_list($attributes) {
               <$headerTag>{$page->post_title}</$headerTag>
               $caseProgressBlock
             </div>
+			$caseLabel
           </div>";
           if ($layoutType === 'case_list') {
             $isEditContext = isset($_GET['context']) && $_GET['context'] === 'edit';
