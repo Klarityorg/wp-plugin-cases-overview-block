@@ -107,7 +107,7 @@ function render_klarity_cases_overview_list($attributes) {
             : 'unresolved';
           $caseLabelColor = isset($metadata['case_label_color'])
 			? $metadata['case_label_color'][0]
-		  	: 'grey';
+		  	: 'red';
           $caseLabel = isset($metadata['case_label'])
 			  ? "<div class='label $caseLabelColor'>".substr($metadata['case_label'][0], 0, 15).".</div>"
 			  : '';
