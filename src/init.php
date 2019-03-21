@@ -109,7 +109,7 @@ function render_klarity_cases_overview_list($attributes) {
 			? $metadata['case_label_color'][0]
 		  	: 'grey';
           $caseLabel = isset($metadata['case_label'])
-			  ? "<div class='label $caseLabelColor'>{$metadata['case_label'][0]}</div>"
+			  ? "<div class='label $caseLabelColor'>".substr($metadata['case_label'][0], 0, 15).".</div>"
 			  : '';
 
           $shortDescription = get_post_meta($page->ID, 'short_description', true);
