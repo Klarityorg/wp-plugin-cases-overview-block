@@ -87,12 +87,12 @@ function render_klarity_cases_overview_list($attributes) {
   $resolutionClass = $showResolved ? 'resolved_cases' : 'unresolved_cases';
 
   if (count($childpages) > 0) {
-    $headerTag = $layoutType === 'case_list' ? 'h3' : 'h4';
     return "<div class='wp-block-klarity-klarity-cases-overview-block row $layoutType $resolutionClass'>"
       . implode(
         '',
-        array_unique(array_map(function ($page) use ($headerTag, $layoutType) {
+        array_unique(array_map(function ($page) use ($layoutType) {
           $metadata = get_post_meta($page->ID);
+		  $title = "<div class='title'>{$page->post_title}</div>";
           $headline = isset($metadata['headline'])
             ? "<div class='headline'>{$metadata['headline'][0]}</div>"
             : '';
@@ -113,10 +113,6 @@ function render_klarity_cases_overview_list($attributes) {
 			  : '';
 
           $shortDescription = get_post_meta($page->ID, 'short_description', true);
-
-          $caseProgress = isset($metadata['case_progress'])
-            ? get_post_meta($page->ID, 'case_progress', true)
-            : 0;
 
           preg_match('#videoThumbnail":"([^"]+)"#', $page->post_content, $thumbnailUrlMatch);
           $imageUrl = $thumbnailUrlMatch[1]
@@ -157,15 +153,10 @@ function render_klarity_cases_overview_list($attributes) {
                 </div>";
             }
 
-            $caseProgressBlock = "<p class='case-progress-title'>Case progress</p><div class='case-progress'>";
-            foreach (range(1, 5) as $number) {
-              $step = $number <= $caseProgress ? $number : 0;
-              $caseProgressBlock .= "<div class='case-block step-".$step."'></div>";
-            }
-            $caseProgressBlock .= "</div>";
+            $caseDescriptionBlock = "<div class='short-description'>$shortDescription</div>";
           }
           else {
-            $caseProgressBlock = "
+            $caseDescriptionBlock = "
               <div class='separator'></div>
               <div class='short-description'>$shortDescription</div>";
           }
@@ -179,8 +170,8 @@ function render_klarity_cases_overview_list($attributes) {
             $cardThumbnail
             <div class='description'>
               $headline
-              <$headerTag>{$page->post_title}</$headerTag>
-              $caseProgressBlock
+              $title
+              $caseDescriptionBlock
             </div>
 			$caseLabel
           </div>";

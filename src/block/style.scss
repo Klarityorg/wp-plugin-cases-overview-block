@@ -4,6 +4,40 @@
 
   &.case_list {
     @include hide-elements-starting-at('.case-wrapper', $hide-cases-from);
+
+    .case {
+      .description {
+        .title {
+          font-weight: bold;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          min-height: 80px;
+          max-height: 80px;
+          line-height: 40px;
+          font-size: 32px;
+        }
+
+        .short-description {
+          height: 80px;
+        }
+      }
+    }
+  }
+
+  &.subcase_list {
+    .case {
+      .description {
+        .title {
+          font-size: 28px;
+          line-height: 32px;
+        }
+
+        .short-description {
+          font-size: 15px;
+        }
+      }
+    }
   }
 
   a {
@@ -118,24 +152,10 @@
       height: 200px;
       padding: 15px;
 
-      h3, h4 {
+      .title {
+        font-family: unna, sans-serif;
         margin-top: 0;
         margin-bottom: 0;
-      }
-
-      h3 {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        min-height: 80px;
-        max-height: 80px;
-        line-height: 40px;
-        font-size: 32px;
-      }
-
-      h4 {
-        font-size: 24px;
-        line-height: 32px;
       }
 
       .headline,
@@ -146,7 +166,7 @@
       .headline {
         font-weight: 300;
         line-height: 16px;
-        font-size: 12px;
+        font-size: 15px;
 
         &.headline {
           text-transform: uppercase;
@@ -169,7 +189,6 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
-      height: 80px;
     }
   }
 
@@ -184,7 +203,6 @@
       @media screen and (min-width: 600px) {
         @include hide-elements-starting-at('.case-wrapper', $hide-resolved-subcases-from--desktop);
       }
-
     }
 
     .case {
@@ -286,7 +304,7 @@
       }
       .case-progress-title{
         font-size: 12px;
-        margin: 0px;
+        margin: 0;
         line-height: 16px;
         text-align: left;
         color: #0F0F0F;
