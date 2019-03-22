@@ -1,6 +1,8 @@
 .wp-block-klarity-klarity-cases-overview-block {
   background: inherit;
   margin-top: -8px !important;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 
   &.case_list {
     @include hide-elements-starting-at('.case-wrapper', $hide-cases-from);
@@ -99,7 +101,7 @@
         justify-content: center;
         position: absolute;
         top: 5px;
-        left: -10px;
+        left: -7px;
         width: 180px;
         height: 20px;
         color: white;
@@ -129,7 +131,7 @@
           width: 0;
           height: 0;
           border-style: solid;
-          border-width: 0 10px 7px 0;
+          border-width: 0 7px 7px 0;
           border-color: transparent black transparent transparent;
         }
       }
