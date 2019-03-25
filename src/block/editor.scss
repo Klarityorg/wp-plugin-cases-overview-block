@@ -3,6 +3,22 @@
   max-width: 740px;
   padding: 2px;
 
+  .case {
+    &.resolved {
+      .col {
+        display: inline-block;
+        &.thumbnail-container {
+          width: 30%;
+        }
+
+        &.description {
+          width: 60%;
+        }
+      }
+    }
+  }
+
+
   a {
     cursor: default;
     text-decoration: none !important;
