@@ -24,6 +24,8 @@ If you wish to build the plugin yourself, see the "Building" section hereunder.
 1. Screenshot of three cases with different case status
 
 == Changelog ==
+= 1.1.4 =
+* Allow the admin to indicate a label on the top of cards, using metadata
 = 1.1.3 =
 * Fixed play icon bug
 = 1.1.2 =
