@@ -4,7 +4,7 @@ Tags: sub-pages, block, gutenberg
 Requires at least: 5.0.0
 Tested up to: 5.1.0
 Requires PHP: 7.2.0
-Stable tag: 1.1.4
+Stable tag: 1.1.5
 License: MIT
 License URI: https://opensource.org/licenses/MIT
 
@@ -24,6 +24,8 @@ If you wish to build the plugin yourself, see the "Building" section hereunder.
 1. Screenshot of three cases with different case status
 
 == Changelog ==
+= 1.1.5 =
+* Increase maximum text length in labels
 = 1.1.4 =
 * Allow the admin to indicate a label on the top of cards, using metadata
 = 1.1.3 =

@@ -63,6 +63,8 @@ function get_klarity_cases($parentId = null, $requiredMeta = []) {
 
 function render_klarity_cases_overview_list($attributes) {
 
+  $MAX_LABEL_SIZE = 18;
+
   wp_enqueue_script(
     'case_overview_see_all_see_less-js',
     plugins_url('/src/block/see-all-see-less.js', __DIR__),
@@ -90,7 +92,7 @@ function render_klarity_cases_overview_list($attributes) {
     return "<div class='wp-block-klarity-klarity-cases-overview-block row $layoutType $resolutionClass'>"
       . implode(
         '',
-        array_unique(array_map(function ($page) use ($layoutType) {
+        array_unique(array_map(function ($page) use ($MAX_LABEL_SIZE, $layoutType) {
           $metadata = get_post_meta($page->ID);
 		  $title = "<div class='title'>{$page->post_title}</div>";
           $headline = isset($metadata['headline'])
@@ -109,7 +111,7 @@ function render_klarity_cases_overview_list($attributes) {
 			? $metadata['case_label_color'][0]
 		  	: 'red';
           $caseLabel = isset($metadata['case_label'])
-			  ? "<div class='label $caseLabelColor'>".substr($metadata['case_label'][0], 0, 15)."</div>"
+			  ? "<div class='label $caseLabelColor'>".substr($metadata['case_label'][0], 0, $MAX_LABEL_SIZE)."</div>"
 			  : '';
 
           $shortDescription = get_post_meta($page->ID, 'short_description', true);
