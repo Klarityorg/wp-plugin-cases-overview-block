@@ -67,7 +67,7 @@ function render_klarity_cases_overview_list($attributes) {
     'case_overview_see_all_see_less-js',
     plugins_url('/src/block/see-all-see-less.js', __DIR__),
     [],
-    filemtime(plugins_url('/src/block/see-all-see-less.js', __DIR__))
+    filemtime(plugin_dir_path(__DIR__).'/src/block/see-all-see-less.js')
   );
 
   global $post;
